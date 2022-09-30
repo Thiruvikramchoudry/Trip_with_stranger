@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+
+
+    <!-- Title Page-->
+    <title>Slot Registration</title>
+
+    <!-- Icons font CSS-->
+    <link href="{% static 'tws/slotcreate_styles/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'tws/slotcreate_styles/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'tws/slotcreate_styles/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'tws/slotcreate_styles/vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Main CSS-->
+    <link href="{% static 'tws/slotcreate_styles/css/main.css' %}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{%  static "tws/slotcreate_styles/css/dynamic.css" %}">
+</head>
+
+<body >
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title" style="text-align: center;">SLOT REGISTRATION</h2>
+                <div class="alert alert-info" role="alert" style="background: linear-gradient(to top left, #00dbff 20%, #fffb00 67%);color: black;border: none;text-align: center;">
+                    Please Enter valid Details for Future Verification!!!....
+                </div>
+
+                <form method="POST" action="{% url 'createslot_phase1' %}">
+                    {% csrf_token %}
+
+                    <h3 class="title" style="font-size: 24px;">SLOT DETAILS</h3>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">SLOT NAME</label>
+                                <input class="input--style-4" type="text" name="slotname" id="slotname" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Journery Starting City</label>
+                                <input class="input--style-4" type="text" name="arrivalcity" required>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Destination City</label>
+                                <input class="input--style-4" type="text" name="destinationcity" required>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Number of Days of Trip</label>
+                                <input class="input--style-4" type="text" name="notrip" required>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Number of Members</label>
+                                <input class="input--style-4" type="text" name="nomembers" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning" role="alert" id="info" style="display: none;"><p><b>Fixed up Slot : </b>Only slot lead Gender can Join these Slot</p>
+                                <p><b>Mixed up Slot : </b>Both gender can Join your Slot..</p>
+                            </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+
+
+                            <label class="label">Type of Slot  <a type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16" style="color:red;" onclick="info()">
+  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+</svg></label></a>
+
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45" >Fixed up Slot
+                                        <input type="radio" checked="checked" name="gender" value="male" id="male" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <br>
+
+                                    <label class="radio-container">Mixed Up Slot
+                                        <input type="radio" name="gender" value="mixed" id="mixed">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Minimum Age of Members</label>
+                                <input class="input--style-4" type="text" name="minage" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Maximum Age of Members</label>
+                                <input class="input--style-4" type="text" name="maxage" required>
+                            </div>
+                        </div>
+                     </div>
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total number of Male</label>
+                                <input class="input--style-4" type="text" name="totmale" required>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total number of Female</label>
+                                <input class="input--style-4" type="text" name="totfemale" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">DATE OF TRAVEL</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 js-datepicker" type="text" name="dot"
+                                           required>
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">DATE OF ARRIVAL</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 js-datepicker" type="text" name="doa"
+                                           required>
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row row-space">
+
+
+                        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                            Privacy</a>.</p>
+                    </div>
+                    -->
+
+                    <div class="p-t-15" style="display: flex; justify-content: center;">
+                        <button class="btn btn--radius-2 btn--blue" type="submit" style="background: linear-gradient(to top right, #00dbff 20%, #fffb00 74%);border: none;color: black">Submit</button>
+                    </div>
+
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery JS-->
+<script src="{% static 'tws/slotcreate_styles/vendor/jquery/jquery.min.js' %}"></script>
+<!-- Vendor JS-->
+<script src="{% static 'tws/slotcreate_styles/vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'tws/slotcreate_styles/vendor/datepicker/moment.min.js' %}"></script>
+<script src="{% static 'tws/slotcreate_styles/vendor/datepicker/daterangepicker.js' %}"></script>
+
+<!-- Main JS-->
+<script src="{% static 'tws/slotcreate_styles/js/global.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    let flag=0;
+    function info(){
+
+        let inf=document.getElementById("info");
+        if (flag==0) {
+            inf.style.display = "";
+            flag=1;
+
+
+
+
+        }
+        else{
+
+            flag=0;
+            inf.style.display="none";
+        }
+
+    }
+
+
+
+</script>
+</body>
+
+</html>
+<!-- end document-->

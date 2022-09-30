@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+
+
+
+    <!-- Title Page-->
+    <title>Registration form</title>
+
+    <!-- Icons font CSS-->
+    <link href="{% static 'tws/dynamixcpage1_styles/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'tws/dynamixcpage1_styles/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'tws/dynamixcpage1_styles/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'tws/dynamixcpage1_styles/vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Main CSS-->
+    <link href="{% static 'tws/dynamixcpage1_styles/css/main.css' %}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{% static 'tws/dynamixcpage1_styles/css/dynamic.css' %}">
+
+</head>
+
+<body>
+
+
+
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src= {% static "" %}{{ image_url }} alt="profilepic" style="width:40px;" class="rounded-pill">
+            </a>
+            <a class="navbar-bran" href="javascript:void(0)" style="text-transform: uppercase;">{{ username }}</a>
+
+
+            <button type="button" id="after_nav" onclick="popup2()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" style="color: white;" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16" id="profile">
+  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+</svg>
+            </button>
+
+
+
+            <div class="collapse navbar-collapse" id="mynavbar" style="justify-content: end;">
+
+
+                <button class="btn btn-info" type="button" style="margin-right: 10px;" ><a style="text-decoration: none;color: white" href={% url 'createslot_phase1' %} >Create Slot</a></button>
+                <button type="button" class="btn btn-danger"><a  style="text-decoration: none;color: white" href={% url 'logout' %} >Logout</a></button>
+            </div>
+
+        </div>
+    </nav>
+    <div class="nav_pop" id="nav_pop">
+        <button style="padding: 0px 10px 5px 10%;width: 100%" class="btn btn-info">
+            <a style="color: white;text-decoration: none;font-size: 20px;" href={% url 'createslot_phase1' %}>Create Slot</a>
+        </button>
+        <button style="padding:0px 10px 5px 10%;width: 100%" class="btn btn-danger">
+            <a style="color: white;text-decoration: none;font-size: 20px;" href={% url 'logout' %}>Logout</a>
+        </button>
+
+    </div>
+
+
+
+    <!--<div class="collapse navbar-collapse" id="mynavbar_pop" style="justify-content: end;display: none">
+
+
+                <button class="btn btn-info" type="button" style="margin-right: 10px;" ><a style="text-decoration: none;color: white" href= >Create</a></button>
+                <button type="button" class="btn btn-danger"><a  style="text-decoration: none;color: white" href={% url 'logout' %} >Logout</a></button>
+    </div>-->
+
+
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4" id="main">
+            <div class="card-body" id="bodymain">
+
+
+                <h2 class="title" style="text-decoration: underline overline;color: black;">AVAILABLE SLOTS</h2>
+
+
+                {% if slots|length == 0 %}
+                    <img src="{% static "tws/dynamixcpage1_styles/images/cat.jpg" %}" alt="img">
+                {% endif %}
+                {% for slot in slots %}
+                    <div class="alert alert-success" role="alert" id="alert" style="text-align: left;height: 125px; box-shadow: 3px 3px 3px black;background: linear-gradient(to top left, #00dbff 20%, #fffb00 67%)";>
+                        <h4><b style="text-transform: uppercase;">{{ slot.slotname }}</b>(Age : {{ slot.Minimum_age_Members }} - {{ slot.Maximum_age_Members }})</h4>
+                        <div style="display: flex;justify-content: space-between;margin-top: 3px;">
+                            <div>
+                                <h5 ><b>From</b> : {{ slot.Arrivalcity }}</h5>
+                                <h5><b>To</b> : {{ slot.Destination }}</h5>
+
+                            </div>
+
+                            <div >
+                                <h5 >{{ slot.Current_Number_Male }}/{{ slot.Total_Male }}  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-people" viewBox="0 0 16 16" style="margin-bottom: 5px;color: darkblue;" >
+                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                        </svg></h5>
+
+                                <h5 >{{ slot.Current_Number_Female }}/{{ slot.Total_Female }}  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-people" viewBox="0 0 16 16"  style="color: deeppink;">
+                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                        </svg></h5>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                        <div style="display:flex;justify-content: right;margin-top: 5px;">
+                            <div style="padding-top: 6px;padding-right:8px;">
+
+                                <h5 >{{ slot.Current_Number_Members }}/{{ slot.Number_of_Members }}  <b><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                             class="bi bi-people" viewBox="0 0 16 16"  style="position: relative;bottom: 2px;color: black">
+                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                        </svg></b></h5>
+                            </div>
+                            <div>
+                                <button type="button" class="join1" ><a style="text-decoration: none;color: white;" id="button" onclick="popup('{{ slot.slotname }}','{% url 'joinuser' slot.slotname %}')">Join</a></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+        <div class="card" id="final" style="display: none;border-radius: 2%;padding: 10px;">
+            <h4 id="message_head" style="font-size: 15px;color: white;"></h4>
+            <br>
+            <hr>
+            <br>
+            <div style="display: flex;justify-content: space-between;margin-top: 35px;">
+
+                <button style="background-color:#ff0000;width: 160px;height: 50px;border-radius: 5%;margin-left: 15px;padding: 5px;text-align: center;" class="cancel" ><a href="" style="color: white;text-decoration: none;font-size: 20px;" id="cancel_anc">Cancel</a></button>
+                <button style="background-color: #00d700;width: 160px;height: 50px;border-radius: 5%;margin-right: 15px;padding: 5px;text-align: center" class="join" ><a href="" style="color: white;text-decoration: none;font-size: 20px;" id="join_anc">Join</a></button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Jquery JS-->
+<script src="{% static 'tws/dynamixcpage1_styles/vendor/jquery/jquery.min.js' %}"></script>
+<!-- Vendor JS-->
+<script src="{% static 'tws/dynamixcpage1_styles/vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'tws/dynamixcpage1_styles/vendor/datepicker/moment.min.js' %}"></script>
+<script src="{% static 'tws/dynamixcpage1_styles/vendor/datepicker/daterangepicker.js' %}"></script>
+
+<!-- Main JS-->
+<script src="{% static 'tws/dynamixcpage1_styles/js/global.js' %}"></script>
+
+<script>
+    let slot_url;
+
+    function popup(slotname,sloturl){
+
+
+        let mess=document.getElementById("final")
+        let mess_header=document.getElementById("message_head")
+        mess_header.innerText="Are you Sure You Wanted to join "+slotname.toUpperCase()+"........"
+        mess_header.style.fontSize="25px"
+        mess.style.display="flex";
+        slot_url=sloturl
+        let anc=document.getElementById("join_anc")
+        anc.href=slot_url;
+
+
+    }
+    let flag=0
+    function popup2(){
+        let pop=document.getElementById("nav_pop");
+        let popup=document.getElementById("profile");
+        if (flag==0) {
+
+            popup.style.border="2px solid white";
+            pop.style.display = "block";
+
+            flag=1;
+        }else{
+
+            popup.style.border="none";
+            pop.style.display="none";
+            flag=0;
+        }
+
+    }
+    function show(x){
+        let mess=document.getElementById("nav_pop");
+        let popup=document.getElementById("profile");
+        if (x.matches) {
+            mess.style.display="none";
+            popup.style.border="none";
+        }
+    }
+    var x = window.matchMedia("(min-width: 574px)");
+    show(x);
+    x.addListener(show);
+
+</script>
+
+</body>
+
+</html>
+<!-- end document-->

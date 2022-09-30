@@ -1,0 +1,138 @@
+.navbar{
+    position: relative;
+    bottom:110px;
+}
+#main{
+    display: flex;
+    justify-content: center;
+    width:120%;
+    height: 800px;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 19px 16px 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: linear-gradient(to top right, #ff002f 0%, #006bff 100%);
+
+
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+
+#bodymain{
+    text-align: center;
+}
+
+
+
+.navbar-bran{
+    margin: auto;
+    text-decoration: none;
+    font-size: 20px;
+    color:white;
+}
+.navbar-bran:hover{
+    color:white;
+    text-shadow: 2px 2px 10px ;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar a:not(:first-child) {display: none;}
+  .navbar a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navbar.responsive {position: relative;}
+  .navbar.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.join1{
+
+    background: linear-gradient(to top right, #006bff 0%,black 48%, #ff002f 100%);
+    width: 70px;
+    height: 30px;
+    border-radius: 10%;
+}
+.join1:hover{
+    background: linear-gradient(to top right, #ff002f 0%,black 48%, #006bff 100%);
+}
+
+#final{
+     top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em;
+    margin-left: -15em;
+    position: fixed;
+    background: linear-gradient(to top right, #ff002f 0%,black 48%, #006bff 100%);
+    border: none;
+    box-shadow: 6px 7px 6px black;
+}
+
+@media only screen and (max-width: 390px) {
+  #alert{
+      width: 290px;
+      position: relative;
+
+      right:50px;
+  }
+}
+
+#after_nav{
+    display: none;
+}
+
+.nav_pop{
+    top: 25%;
+    left: 85%;
+    height: 110px;
+    width: 60%;
+    margin-top: -8em;
+    margin-left: 40%;
+    background: #212529;
+    color: white;
+    display: none;
+    margin-bottom: 2px;
+}
+
+
+@media only screen and (max-width: 574px) {
+    #after_nav{
+        display: block;
+    }
+}
+
+#Button1{
+    width: 200px;
+    height:50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

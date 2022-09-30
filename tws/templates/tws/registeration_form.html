@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+
+
+    <!-- Title Page-->
+    <title>Registration form</title>
+
+    <!-- Icons font CSS-->
+    <link href="{% static 'tws/registration_style/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'tws/registration_style/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'tws/registration_style/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'tws/registration_style/vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Main CSS-->
+    <link href="{% static 'tws/registration_style/css/main.css' %}" rel="stylesheet" media="all">
+</head>
+
+<body>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" id="bg_location">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                {% if error == "username_taken" %}
+                <div class="alert alert-danger" role="alert" id="comment">
+                Username Already Taken.....
+
+                </div>
+                {% endif %}
+                <h2 class="title" style="text-align: center">Registration Form</h2>
+                <div class="alert alert-info" role="alert" id="alert">
+                    Please Enter valid Details for Future Verification!!!
+                </div>
+                <form method="POST" action="{% url 'register' %} " enctype="multipart/form-data" onsubmit="final_check()" id="form">
+                    {% csrf_token %}
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">First Name</label>
+                                <input class="input--style-4" type="text" name="firstname" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Last Name</label>
+                                <input class="input--style-4" type="text" name="lastname" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Date Of Birth</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 js-datepicker" type="text" name="dob"
+                                           placeholder="DD/MM/YYYY" required>
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Gender</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45" >Male
+                                        <input type="radio" checked="checked" name="gender" value="male" id="male" onclick="gender_mbg()">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">Female
+                                        <input type="radio" name="gender" value="female" id="female" onclick="gender_fbg()">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Email</label>
+                                <input class="input--style-4" type="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Phone Number</label>
+                                <input class="input--style-4" type="text" name="phone" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Username</label>
+                                <input class="input--style-4" type="text" name="username" id="username_text" onclick="username_click()" onkeyup="username_check()" required   >
+                                <div class="alert alert-warning" role="alert" style="display: none;width: 100%; transition: 0.5s;border-radius: 10px;" id="suggest">Username Must be Unique</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Password</label>
+                                <input id="pass1" class="input--style-4" type="password" name="password" required >
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Repeat password</label>
+                                <input id = "pass2" class="input--style-4" type="password" name="repassword" required onkeyup="password_check()">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">State</label>
+                                <input class="input--style-4" type="text" name="state" required>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Address</label>
+                                <input class="input--style-4" type="text" name="address" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">City</label>
+                                <input class="input--style-4" type="text" name="city" required>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Pincode</label>
+                                <input class="input--style-4" type="text" name="pincode" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row row-space">
+
+
+                        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                            Privacy</a>.</p>
+                    </div>
+
+
+                    <div class="p-t-15" style="display: flex; justify-content: center;">
+                        <button class=" btn btn--radius-2 btn--blue " type="submit"  id="submit_button" style="background:linear-gradient(to top right, #0097ff 0%, #fbc2eb 100%);border: none;" >Submit</button>
+                    </div>
+                    <br>
+                    <hr>
+                    <p style="text-align: center;">Already Have an <a href="{% url 'login' %}" style="text-decoration: none;"> Account!!!</a></p>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery JS-->
+<script src="{% static 'tws/registration_style/vendor/jquery/jquery.min.js' %}"></script>
+<!-- Vendor JS-->
+<script src="{% static 'tws/registration_style/vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'tws/registration_style/vendor/datepicker/moment.min.js' %}"></script>
+<script src="{% static 'tws/registration_style/vendor/datepicker/daterangepicker.js' %}"></script>
+
+<!-- Main JS-->
+<script src="{% static 'tws/registration_style/js/global.js' %}"></script>
+<script>
+    const randColor = () =>  {
+        return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
+
+    }
+    function isUpperCase(str) {
+        return !/[a-z]/.test(str) && /[A-Z]/.test(str);
+    }
+
+    function isLowerCase(str) {
+        return /[a-z]/.test(str) && !/[A-Z]/.test(str);
+    }
+    function username_click(){
+        var innertext=document.getElementById('username_text');
+        var sugg=document.getElementById('suggest');
+        sugg.style.display="inline";
+    }
+    function username_check(){
+        var inner=document.getElementById('username_text');
+        var sugg=document.getElementById('suggest');
+        var str=inner.value;
+        if(str.length<8 || str.length>16){
+            sugg.innerText="usename must be greater than 8 characters and less than 16 characters";
+            sugg.style.background="#ff6666";
+            document.querySelector('#submit_button').disabled = true;
+            $("#suggest").fadeIn(0);
+        }
+        else{
+            var upp=0,low=0,spe=0,num=0;
+            for(i=0;i<str.length;i++){
+                if (isUpperCase(str[i])){
+                    upp+=1;
+                }else if(isLowerCase(str[i])){
+                    low+=1;
+                }else if(Number.isInteger(parseInt(str[i]))){
+                    num+=1
+                }else{
+                    spe+=1;
+                }
+            }
+            if(upp==0 || low==0 || spe==0 ||num==0){
+                sugg.innerText="They should be special, uppercase , lowercase characters and a number present in your username";
+                sugg.style.background="#ff6666";
+                $("#suggest").fadeIn(0);
+                document.querySelector('#submit_button').disabled = true;
+                return false;
+
+            }
+            else{
+                sugg.innerText="Done...";
+                sugg.style.background="	#32CD32";
+                $("#suggest").fadeOut(2000);
+                document.querySelector('#submit_button').disabled = false;
+                return true;
+
+            }
+        }
+
+
+    }
+    function password_check(){
+        var password=document.getElementById("pass1")
+        var repassword=document.getElementById("pass2")
+
+        if(password.value!=repassword.value){
+            repassword.style.background="#ff6666";
+            document.querySelector('#submit_button').disabled = true;
+            return false;
+        }else{
+            repassword.style.background="white";
+            document.querySelector('#submit_button').disabled = false;
+            return true;
+        }
+    }
+    function gender_mbg(){
+        var body_bg=document.getElementById("bg_location");
+        var c1=randColor();
+        var c2=randColor();
+        var comb="linear-gradient(to top right,"+c2+" 0%,black 48%,"+c1+" 100%)"
+        body_bg.style.background=comb
+        var head=document.getElementById("alert");
+        head.style.background="#cff4fc";
+
+    }
+    function gender_fbg(){
+        var body_bg=document.getElementById("bg_location");
+        var c1=randColor();
+        var c2=randColor();
+        var comb="linear-gradient(to top right,"+c2+" 0%,black 48%,"+c1+" 100%)"
+        body_bg.style.background=comb
+        var head=document.getElementById("alert");
+        head.style.background="#fbc2eb";
+    }
+
+
+
+
+
+
+    $("#comment").fadeOut(5000);
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
+<!-- end document-->

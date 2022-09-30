@@ -1,0 +1,69 @@
+
+
+
+
+.members{
+    position: relative;
+    left: 90%;
+    top:19px;
+}
+
+#img1{
+
+    position: relative;
+    bottom: 57.5px;
+    left: 84%;
+    color: #6a57ec;
+
+
+}
+#img2{
+    color: deeppink;
+    position: relative;
+    bottom: 114.5px;
+    left: 96%;
+}
+#img3{
+    color: black;
+    position: relative;
+    bottom: 116px;
+    left: 96%;
+ }
+
+.join{
+    background-color: #0c1e43;
+    color: orange;
+    border-radius: 20px;
+    width: 80px;
+    height: 31px;
+    position: relative;
+    bottom: 88px;
+    left: 80%;
+}
+.join:hover{
+    background-color: orange;
+    color: #0c1e43;
+}
+
+
+.tmember{
+
+    position: relative;
+    left: 88.5%;
+    bottom: 22.5px;
+}
+.navbar {
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
