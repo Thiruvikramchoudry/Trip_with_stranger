@@ -91,7 +91,7 @@
 
     <div class="wrapper wrapper--w680">
         <div class="card card-4" id="main">
-            <div class="card-body" id="bodymain">
+            <div class="card-body" id="bodymain" style="width: 100%">
 
 
                 <h2 class="title" style="text-decoration: underline overline;color: black;">AVAILABLE SLOTS</h2>
@@ -101,7 +101,7 @@
                     <img src="{% static "tws/dynamixcpage1_styles/images/cat.jpg" %}" alt="img">
                 {% endif %}
                 {% for slot in slots %}
-                    <div class="alert alert-success" role="alert" id="alert" style="text-align: left;height: 125px; box-shadow: 3px 3px 3px black;background: linear-gradient(to top left, #00dbff 20%, #fffb00 67%)";>
+                    <div class="alert alert-success" role="alert" id="alert" style="text-align: left;height: 125px; box-shadow: 3px 3px 3px black;background: linear-gradient(to top left, #00dbff 20%, #fffb00 67%);width: 100%;";>
                         <h4><b style="text-transform: uppercase;">{{ slot.slotname }}</b>(Age : {{ slot.Minimum_age_Members }} - {{ slot.Maximum_age_Members }})</h4>
                         <div style="display: flex;justify-content: space-between;margin-top: 3px;">
                             <div>
@@ -186,7 +186,6 @@
         slot_url=sloturl
         let anc=document.getElementById("join_anc")
         anc.href=slot_url;
-
 
     }
     let flag=0

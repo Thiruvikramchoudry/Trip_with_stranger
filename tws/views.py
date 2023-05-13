@@ -36,16 +36,16 @@ def login(request):
         if user is not None:
             users = user_with_slotdetail.objects.all()
             flag = 0
-            slotname=""
+            slotid=""
             for user_name in users:
                 if user_name.username == username:
                     flag = 1
-                    slotname=user_name.slotname
+                    slotid=user_name.slot_id
             auth.login(request, user)
             if flag == 0:
                 return redirect('/userpage')
             else:
-                return redirect('slotpage/' + slotname)
+                return redirect('slotpage/' + str(slotid))
         else:
             # used to pass comments ....
 
@@ -133,24 +133,30 @@ def dynamic_page_notjoined(request):
     username = request.user
     userdetail=registration.objects.get(username=username)
     print(userdetail.username)
-    userage=0
+    userage=userdetail.age
     usergender=""
     image_url=""
+
 
     slot_detail = slot_details.objects.all()
     slots = []
 
 
     for slot in slot_detail:
+
         flag=0
         if(str(usergender)=="Male" and int(slot.Current_Number_Male)==int(slot.Total_Male)):
             flag=1
+            print(1)
         elif(usergender=="Female" and slot.Current_Number_Female==slot.Total_Female):
             flag=1
+            print(2)
         if(int(userage)>int(slot.Maximum_age_Members) or int(userage)<int(slot.Minimum_age_Members)):
             flag=1
+            print(3,slot.Maximum_age_Members,userage,slot.Minimum_age_Members)
         if(flag==0):
             slots.append(slot)
+    print(slots)
 
 
     return render(request, 'tws/dynamicpage_notjoineduser.html', {'userdetail': userdetail, 'slots': slots})
@@ -209,12 +215,12 @@ def create_slot_phase1(request):
                             Number_of_Members=number_of_members, Current_Number_Members=current_number_members,
                             Minimum_age_Members=minimum_age, Maximum_age_Members=maximum_age, Total_Male=total_male,
                             Total_Female=totalfemale, Starting_Date=starting_date, Returning_Date=returning_date,
-                            Current_Number_Female=current_number_female, Current_Number_Male=current_number_male)
+                            Current_Number_Female=current_number_female, Current_Number_Male=current_number_male,slot_id=slot_id)
         slot.save()
-        userandslot = user_with_slotdetail(username=username, slotname=slotname)
+        userandslot = user_with_slotdetail(username=username, slot_id=slot_id)
         userandslot.save()
         user_ = str(username)
-        return redirect('/slotpage/' + slotname)
+        return redirect('/slotpage/' + str(slot_id))
     else:
         return render(request, 'tws/slotcreate.html')
 
@@ -228,20 +234,25 @@ def logout(request):
 
 # join a slot
 # @login_required()
-def joinuser(request, slotname):
+def joinuser(request, slotid):
     username = request.user
-    slotname = slotname
-    userandslot = user_with_slotdetail(username=username, slotname=slotname)
+    slotname = slot_details.objects.get(slot_id=slotid).slotname
+    userandslot = user_with_slotdetail(username=username, slot_id=slotid)
     userandslot.save()
     details=slot_details.objects.get(slotname=slotname)
     user_details=registration.objects.get(username=username)
 
     details.Current_Number_Members+=1
+    slot=slot_details.objects.get(slot_id=slotid)
+
     mcount=0;fcount=0
     if(str(user_details.gender)=="Male"):
-        mcount=1
+        slot.Current_Number_Male+=1
     else:
-        fcount=1
+        slot.Current_Number_Female+=1
+    slot.Current_Number_Members+=1
+    slot.save()
+
 
 
 
@@ -257,18 +268,18 @@ def joinuser(request, slotname):
 
 
 
-    return redirect('/slotpage/'+str(slotname))
+    return redirect('/slotpage/'+str(slotid))
    # return render(request, 'tws/dynamicpage_joined.html')
 
 
 # page for slot joined users
 @login_required()
-def slotpage(request, slotname):
+def slotpage(request, slotid):
     username=request.user
     users = user_with_slotdetail.objects.all()
     teammembers = []
     for user in users:
-        if user.slotname == slotname:
+        if user.slot_id == slotid:
             teammembers.append(user.username)
     userdetails = []
     userdetail=registration.objects.all()
@@ -284,15 +295,16 @@ def slotpage(request, slotname):
         innertext = "Leave"
     else:
         innertext = "Delete Slot"
+    slot=slot_details.objects.get(slot_id=slotid)
 
-    return render(request, "tws/dynamicpage_joined.html",{"slotname": slotname, "team": userdetails, "innertext": innertext})
+    return render(request, "tws/dynamicpage_joineduser.html",{"slotname": slot.slotname, "team": userdetails, "innertext": innertext})
 
 
 
 def delete_slot(request):
     slotname = slot_details.objects.get(username=request.user)
 
-    users = user_with_slotdetail.objects.filter(slotname=slotname)
+    users = user_with_slotdetail.objects.filter(slot_id=slotname.slot_id)
     for user in users:
         user.delete()
 
@@ -302,44 +314,21 @@ def delete_slot(request):
 def leave_slot(request):
 
     slotname="none"
-    users = user_with_slotdetail.objects.filter(username=request.user)
-    for user in users:
-        slotname=user.slotname
-        user.delete()
+    gender=registration.objects.get(username=request.user).gender
 
-    user_details = registration.objects.get(username=request.user)
-    gender=user_details.gender
-    details="none"
-    current_members=0
-    fcount=0
-    mcount=0
-    slotdetail=slot_details.objects.all()
-    for slots in slotdetail:
-        if slots.slotname==slotname:
-            details=slots
-            current_members=slots.Current_Number_Members-1
-            if(gender=="Male"):
-                mcount=1
-            else:
-                fcount=1
+    user_details = user_with_slotdetail.objects.get(username=request.user)
+
+    slot_upd=slot_details.objects.get(slot_id=user_details.slot_id)
+    slot_upd.Current_Number_Members-=1
+    if gender=="Male":
+        slot_upd.Current_Number_Male-=1
+    else:
+        slot_upd.Current_Number_Female-=1
+    slot_upd.save()
+    users = user_with_slotdetail.objects.filter(username=request.user).delete()
 
 
-    #print(details.Current_Number_Members,details.username)
-    slot = slot_details(username=details.username, slotname=slotname,
-                        Arrivalcity=details.Arrivalcity, Destination=details.Destination,
-                        Days_of_Trip=details.Days_of_Trip,
-                        Number_of_Members=details.Number_of_Members,
-                        Current_Number_Members=current_members,
-                        Minimum_age_Members=details.Minimum_age_Members,
-                        Maximum_age_Members=details.Maximum_age_Members, Total_Male=details.Total_Male,
-                        Total_Female=details.Total_Female, Starting_Date=details.Starting_Date,
-                        Returning_Date=details.Returning_Date,
-                        Current_Number_Female=details.Current_Number_Female-fcount,
-                        Current_Number_Male=details.Current_Number_Male-mcount)
-
-    details.delete()
-    slot.save()
-    return dynamic_page_notjoined(request)
+    return redirect('userpage')
 
 
 def sample(request):
