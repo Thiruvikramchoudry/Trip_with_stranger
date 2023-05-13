@@ -29,6 +29,7 @@ urlpatterns = [
     path('slotpage/<str:slotname>',views.slotpage,name="slotpage"),
     path('delete_slot',views.delete_slot,name="delete_slot"),
     path('leave_slot',views.leave_slot,name="leave_slot"),
+    path('sample',views.sample,name="sample"),
 ]
 
 #{% url 'joinuser' slot.slotname %}

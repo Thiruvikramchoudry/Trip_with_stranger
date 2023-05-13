@@ -55,8 +55,5 @@ class slot_details(models.Model):
 class user_with_slotdetail(models.Model):
     username=models.CharField(max_length=20)
     slot_id=models.IntegerField()
-    slotname=models.CharField(max_length=20)
-
-
     def __str__(self):
         return self.username

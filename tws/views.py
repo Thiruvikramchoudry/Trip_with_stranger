@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import comments,registration#, slot_details, user_with_slotdetail
+from .models import comments,registration, slot_details, user_with_slotdetail
 from django.contrib.auth.models import User, auth
 from datetime import date
 from django.contrib.auth.decorators import login_required
@@ -131,15 +131,12 @@ def register(request):
 @login_required()
 def dynamic_page_notjoined(request):
     username = request.user
-    userdetail=registration.objects.all()
+    userdetail=registration.objects.get(username=username)
+    print(userdetail.username)
     userage=0
     usergender=""
     image_url=""
-    for users in userdetail:
-        if str(users.username)==str(username):
-            userage=users.age
-            usergender=users.gender
-            image_url=users.image_url
+
     slot_detail = slot_details.objects.all()
     slots = []
 
@@ -156,7 +153,7 @@ def dynamic_page_notjoined(request):
             slots.append(slot)
 
 
-    return render(request, 'tws/dynamicpage_notjoined.html', {'username': username, 'slots': slots,'image_url':image_url})
+    return render(request, 'tws/dynamicpage_notjoineduser.html', {'userdetail': userdetail, 'slots': slots})
 
 
 # create a slot
@@ -183,7 +180,7 @@ def create_slot_phase1(request):
         except:
             slot_id=100000
 
-        """minimum_age = request.POST['minage']
+        minimum_age = request.POST['minage']
         maximum_age = request.POST['maxage']
         total_male = request.POST['totmale']
         totalfemale = request.POST['totfemale']
@@ -217,7 +214,7 @@ def create_slot_phase1(request):
         userandslot = user_with_slotdetail(username=username, slotname=slotname)
         userandslot.save()
         user_ = str(username)
-        return redirect('/slotpage/' + slotname)"""
+        return redirect('/slotpage/' + slotname)
     else:
         return render(request, 'tws/slotcreate.html')
 
@@ -343,3 +340,7 @@ def leave_slot(request):
     details.delete()
     slot.save()
     return dynamic_page_notjoined(request)
+
+
+def sample(request):
+    return render(request,'tws/dynamicpage_notjoined.html')
