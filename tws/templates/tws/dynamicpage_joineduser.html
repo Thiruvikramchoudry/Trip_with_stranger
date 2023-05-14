@@ -30,6 +30,14 @@
    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        .post_message{
+            width: 70px;background: #ee580f;height: 35px;color: aliceblue;padding: 9px;border-radius: 4px;margin-left: 5px;text-align: center;
+        }
+        .post_message:hover{
+            width: 70px;background:aliceblue;height: 35px;color: #ee580f;padding: 9px;border-radius: 4px;margin-left: 5px;text-align: center;cursor: grab;
+        }
+    </style>
 </head>
 <!-- body -->
 
@@ -102,7 +110,7 @@
          <div class="container">
             <div class="text-bg">
                <h1 style="color: whitesmoke">{{ slotdetails.slotname }}</h1>
-               <div style="background: linear-gradient(to bottom,#036b88,transparent);width: 400px;height: 179px;margin: auto;border-radius: 20px;padding: 15px;color: aliceblue;font-size: 20px;box-shadow: 8px 6px 23px black;">
+               <div style="background: linear-gradient(to bottom,#036b88,transparent);width: 500px;height: 179px;margin: auto;border-radius: 20px;padding: 15px;color: aliceblue;font-size: 20px;box-shadow: 8px 6px 23px black;">
                    <p style="text-align: left;font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
 </svg> {{ slotdetails.username }} --> Lead</p>
@@ -206,6 +214,68 @@
       </div>
    </div>
    <!-- end about -->
+
+   <div id="about" class="about" style="margin-top: 10px;">
+       <nav class="container" style="width: 100%;height: 80px;background: #0c5460;border-radius: 10px 10px 0px 0px;padding: 19px;color: aliceblue;font-size: 25px;text-transform: uppercase;">
+           {{ userdetail.username }}
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16" style="color: #0aff0a">
+  <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"/>
+</svg>
+       </nav>
+      <div class="container" style="box-shadow: 8px 8px 31px #01474b;height: 400px;padding:0px;display: flex">
+            <div style="width: 20%;background: #0b969f;box-shadow: 4px 2px 20px black;padding: 30px;">
+                <h1 style="margin: 0px 55px;"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+</svg></h1>
+                {%  for i in team %}
+                    <p style="color: whitesmoke;margin: 10px;">{{ i.username }}</p>
+                {% endfor %}
+            </div>
+            <div style="overflow-y: scroll;width: 100%;padding: 20px;" id="display">
+                <div class="alert-warning" style="width: 90%;min-height: 45px;padding: 10px;color: whitesmoke;background: #0b969f;border-radius: 13px;">
+                    <p style="color: lime"><b>~username</b></p>
+                    <p style="margin-left: 20px;">rnd je dcjew djkn dcj edcj wekjndc w djk ecwkjd ce wke cjk j3e wdhfb3rwdjksbjhabsd</p>
+                    <div style="display: flex;justify-content: space-between;font-weight: 340;margin-top: 5px;">
+                        <div><b>Date</b></div>
+                        <div><b>Time</b></div>
+                    </div>
+                </div>
+            </div>
+      </div>
+       <div class="container" style="height: 60px;background: #0c5460;border-radius: 0px 0px 10px 10px;display: flex;padding: 13px;">
+           <div style="display: flex;width: 7%">
+               <div style="width: 32px;background: #0a4953;height: 31px;color: aliceblue;padding: 7px;border-radius: 4px;">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+</svg>
+               </div>
+               <div style="width: 32px;background: #0a4953;height: 31px;color: aliceblue;padding: 7px;border-radius: 4px;margin-left: 5px;">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+  <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+</svg>
+               </div>
+           </div>
+           <div style="width: 82%;height:35px;border-radius: 5px;overflow: hidden;">
+               <input type="text" style="width: 100%;height: 35px;border: none;" placeholder="Type a message" id="text_context">
+           </div>
+           <div style="display: flex;">
+               <div style="width: 37px;background: #0a4953;height: 35px;color: aliceblue;padding: 8px;border-radius: 4px;margin-left: 5px;">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
+  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+  <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+</svg>
+               </div>
+               <div class="post_message" onclick="send_message()">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff-fill" viewBox="0 0 16 16">
+  <path d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.578 3.578 0 0 0-.108-.563 2.22 2.22 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2.35 2.35 0 0 0-.16-.045 3.797 3.797 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.552 2.552 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526l.24-2.408Zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361.599.599.437 1.732-.36 2.531Z"/>
+  <path d="M5.205 10.787a7.632 7.632 0 0 0 1.804 1.352c-1.118 1.007-4.929 2.028-5.054 1.903-.126-.127.737-4.189 1.839-5.18.346.69.837 1.35 1.411 1.925Z"/>
+</svg>
+               </div>
+           </div>
+
+       </div>
+   </div>
    <!-- traveling -->
 
    <!-- end traveling -->
@@ -343,6 +413,7 @@
             </div>
          </div>
       </div>
+       <p style="display: none" id="current_username">{{ userdetail.username }}</p>
    </footer>
    <!-- end footer -->
    <!-- Javascript files-->
@@ -376,6 +447,64 @@
             }
          })
       })
+      $(document).ready(function(){
+
+    setInterval(function(){
+        $.ajax({
+            type: 'GET',
+            url : "getMessages/{{ slotdetails.slot_id }}",
+            success: function(response){
+                console.log(response);
+                $("#display").empty();
+                for (var key in response.messages)
+                {
+                    let date_time=response.messages[key].time_now.toString().slice(0,-1);
+                    date_time=date_time.split("T");
+                    let date_today=date_time[0];
+                    let time_today=date_time[1];
+                    let username=response.messages[key].username;
+                    let message=response.messages[key].user_message;
+                    console.log(message);
+                    console.log(date_today);
+                    let current_user=document.getElementById("current_username").innerText;
+
+
+                    if(username.toString()!=current_user.toString()) {
+                        var temp = "<div class='alert-warning' style='width: 80%;min-height: 45px;padding: 10px;color: whitesmoke;background: #0b969f;border-radius: 13px;border: none;margin-bottom: 20px;'><p style='color: lime;text-align: end'><b>~" + username + "</b></p><p style='margin-top: 0px;'>" + message + "</p> <div style='display: flex;justify-content: space-between;font-weight: 340;margin-top: 5px;font-size: 10px;'><div><b>" + date_today + "</b></div><div><b>" + time_today + "</b></div></div><div>";
+                    }else{
+                        var temp = "<div class='alert-warning' style='width: 80%;min-height: 45px;padding: 10px;color: whitesmoke;background: orange;border-radius: 13px;border: none;margin-left: 20%;margin-bottom: 20px;'><p style='color: cyan;text-align: end'><b>~" + username + "</b></p><p style='margin-top: 0px;'>" + message + "</p> <div style='display: flex;justify-content: space-between;font-weight: 340;margin-top: 5px;font-size: 10px;'><div><b>" + date_today + "</b></div><div><b>" + time_today + "</b></div></div><div>";
+
+                    }
+                    //console.log(temp);
+                    $("#display").append(temp);
+                }
+            },
+            error: function(response){
+                alert('An error occured')
+            }
+        });
+    },1000);
+})
+   </script>
+   <script>
+       function send_message(){
+           let message =document.getElementById("text_context").value;
+
+           let current_user=document.getElementById("current_username").innerText;
+           $.ajax({
+            type:'POST',
+            url:'/send_message',
+              data:{
+                  username:current_user,
+                  message:message,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+              },
+              success: function(data){
+
+              }
+           });
+           document.getElementById("text_context").value="";
+       }
    </script>
 
 </body>

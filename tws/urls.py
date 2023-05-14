@@ -30,6 +30,8 @@ urlpatterns = [
     path('delete_slot',views.delete_slot,name="delete_slot"),
     path('leave_slot',views.leave_slot,name="leave_slot"),
     path('sample',views.sample,name="sample"),
+    path('slotpage/getMessages/<slotid>',views.getmessage,name="getMessages"),
+    path('send_message',views.send_message,name="send_message"),
 ]
 
 #{% url 'joinuser' slot.slotname %}

@@ -1,5 +1,5 @@
 from django.db import models
-
+import datetime
 # Create your models here.
 
 class comments(models.Model):
@@ -57,3 +57,14 @@ class user_with_slotdetail(models.Model):
     slot_id=models.IntegerField()
     def __str__(self):
         return self.username
+
+
+class message_area(models.Model):
+    username=models.CharField(max_length=100)
+    slot_id=models.IntegerField()
+    user_message=models.CharField(max_length=100000)
+    time_now=models.DateTimeField(default=datetime.datetime.now,blank=True)
+
+    def __str__(self):
+        return str(self.slot_id)
+

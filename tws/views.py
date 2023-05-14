@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from .models import comments,registration, slot_details, user_with_slotdetail
+from .models import comments,registration, slot_details, user_with_slotdetail,message_area
 from django.contrib.auth.models import User, auth
 from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 import random as ran
+from django.http import HttpResponse, JsonResponse
 
 import json
 
@@ -337,3 +338,18 @@ def leave_slot(request):
 
 def sample(request):
     return render(request,'tws/dynamicpage_notjoined.html')
+
+
+def getmessage(request,slotid):
+    room = message_area.objects.filter(slot_id=slotid)
+    print(room)
+    return JsonResponse({"messages": list(room.values())[::-1]})
+
+def send_message(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    slot_id=user_with_slotdetail.objects.get(username=username).slot_id
+    new_message = message_area.objects.create(user_message=message,username=username,slot_id=slot_id)
+    new_message.save()
+
+
