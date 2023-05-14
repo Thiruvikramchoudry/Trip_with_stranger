@@ -279,13 +279,16 @@ def slotpage(request, slotid):
     users = user_with_slotdetail.objects.all()
     teammembers = []
     for user in users:
-        if user.slot_id == slotid:
+
+        if str(user.slot_id) == str(slotid):
             teammembers.append(user.username)
+
     userdetails = []
     userdetail=registration.objects.all()
     for user in userdetail:
         if user.username in teammembers:
             userdetails.append(user)
+
     innertext = ""
     try:
         status = slot_details.objects.get(username=username)
@@ -296,8 +299,9 @@ def slotpage(request, slotid):
     else:
         innertext = "Delete Slot"
     slot=slot_details.objects.get(slot_id=slotid)
+    admin_detail=registration.objects.get(username=request.user)
 
-    return render(request, "tws/dynamicpage_joineduser.html",{"slotname": slot.slotname, "team": userdetails, "innertext": innertext})
+    return render(request, "tws/dynamicpage_joineduser.html",{"slotdetails": slot, "team": userdetails, "innertext": innertext,"userdetail":admin_detail})
 
 
 
